@@ -1,0 +1,106 @@
+defaults:
+    - agent: sac
+    - override hydra/launcher: submitit_slurm
+
+env_expert: pendulum_swingup
+env_agent: cartpole_swingup
+
+metric_expert: euclidean
+metric_agent: euclidean
+
+state_expert: state
+state_agent: state
+
+maze_id_agent: 0
+maze_id_expert: 0
+time_limit: 1000
+
+demonstration_name: ''
+
+nb_channels_expert: 3
+size_observation_expert: 84
+
+nb_channels_agent: 3
+size_observation_agent: 84
+
+experiment: test_exp
+
+num_train_steps: 1e6
+replay_buffer_capacity: ${num_train_steps}
+
+num_train_steps_expert: 1e6
+
+gw_include_actions_expert: true
+gw_include_actions_agent: true
+gw_entropic: true
+gw_epsilon: 5e-4
+gw_max_iter: 1000
+gw_tol: 1e-9
+gw_normalize: false
+gw_normalize_batch: false
+
+cutoff: 1e-5
+
+ot_cost: gw
+
+normalize_agent_with_expert: false
+
+sinkhorn_reg: 5e-3
+
+num_seed_steps: 5000
+
+eval_frequency: 50000
+num_eval_episodes: 10
+num_eval_episodes_expert: 10
+
+verbose: false
+
+device: cuda
+
+dmc: true
+gym: false
+
+weight_external_reward: 1
+weight_gw_reward: 1
+
+pretrained_agent: ''
+
+include_external_reward: false
+
+ultra_sparse: false
+
+# logger
+log_frequency: 10000
+log_save_tb: false
+
+# video recorder
+save_video: true
+
+timeout_min: 2000
+
+seed: 1
+
+comment: ''
+partition: learnlab
+gpus_per_node: 1
+cpus_per_task: 10
+
+expert_model: ''
+
+project_name: gwil
+
+# hydra configuration
+hydra:
+    run:
+        dir: ./exp/local/${now:%Y.%m.%d.%H%M%S}/${experiment}_${now:%H%M%S}
+    sweep:
+        dir: ./exp/${now:%Y.%m.%d.%H%M%S}/${now:%H%M%S}_${experiment}
+        subdir: ${hydra.job.num}
+    launcher:
+        max_num_timeout: 100000
+        timeout_min: ${timeout_min}
+        partition: ${partition}
+        comment: ${comment}
+        mem_gb: 64
+        gpus_per_node: ${gpus_per_node}
+        cpus_per_task: ${cpus_per_task}
