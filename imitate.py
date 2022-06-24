@@ -14,7 +14,7 @@ from replay_buffer import ReplayBuffer
 import utils
 import dmc2gym
 import hydra
-import wrappers
+# import wrappers
 
 
 def make_maze(cfg, env_id, maze_id):
