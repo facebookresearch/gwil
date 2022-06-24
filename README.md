@@ -51,7 +51,7 @@ The parameter num_train_steps is set to be the same as when training the expert 
 ```
 python imitate.py env_expert=pendulum_swingup env_agent=cartpole_swingup num_train_steps=1e6 experiment=imitation_normalize gw_entropic=false gw_normalize=true
 python imitate.py env_expert=cheetah_run env_agent=walker_walk num_train_steps=2e6 experiment=imitation_normalize gw_entropic=false gw_normalize=true
-python imitate.py env_expert=MazeEnd_PointMass env_agent=MazeEnd_PointMass maze_id_expert=0 maze_id_agent=2 num_train_steps=1e6 experiment=imitation_normalize gw_entropic=false gw_normalize=true
+python imitate.py env_expert=MazeEnd_PointMass env_agent=MazeEnd_PointMass maze_id_expert=0 maze_id_agent=2 num_train_steps=1e6 experiment=imitation_normalize gw_entropic=false gw_normalize=true dmc=false
 
 ```
 
